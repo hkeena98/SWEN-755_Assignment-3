@@ -5,8 +5,8 @@ import java.util.List;
 
 public class PrimeGenerator implements Runnable{
 
-    private String taskName;
-    private int numPrimes;
+    private final String taskName;
+    private final int numPrimes;
 
     public PrimeGenerator(String name, int numPrimes) {
         this.taskName = name;
@@ -14,7 +14,7 @@ public class PrimeGenerator implements Runnable{
     }
 
     public static List<Integer> sieveOfEratosthenes(int n) {
-        boolean prime[] = new boolean[n + 1];
+        boolean[] prime = new boolean[n + 1];
         Arrays.fill(prime, true);
         for (int p = 2; p * p <= n; p++) {
             if (prime[p]) {
@@ -32,18 +32,20 @@ public class PrimeGenerator implements Runnable{
         return primeNumbers;
     }
 
-    private String print(List<Integer> primes) {
-        String boundString = "\nPrime Upper Bound: " + this.numPrimes;
-        String primesString = "\nNumber of Primes: " + primes.size();
-        String highestString = "\nHighest Prime: " + primes.get(primes.size() - 1);
-        String timeString= "\nCurrentTime: " + Calendar.getInstance().get(Calendar.SECOND);
-        return taskName + boundString + primesString + highestString + timeString;
+    private void printPrimes(List<Integer> primes) {
+        String printOut =
+                "Task Name: " + taskName +
+                "\nPrime Upper Bound: " + this.numPrimes +
+                "\nNumber of Primes: " + primes.size() +
+                "\nHighest Prime: " + primes.get(primes.size() - 1) +
+                "\nCurrentTime: " + Calendar.getInstance().get(Calendar.SECOND);
+        System.out.println(printOut);
+        System.out.println(primes + "\n");
     }
 
     @Override
     public void run() {;
         List<Integer> primes = sieveOfEratosthenes(this.numPrimes);
-        System.out.println(print(primes));
-        System.out.println(primes + "\n");
+        printPrimes(primes);
     }
 }
