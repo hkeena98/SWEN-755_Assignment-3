@@ -44,7 +44,7 @@ public class PrimeGenerator implements Runnable{
     }
 
     @Override
-    public void run() {;
+    public void run() {
         List<Integer> primes = sieveOfEratosthenes(this.numPrimes);
         printPrimes(primes);
     }
