@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Henry Keena, Gavin Burris, Prateek Narayanan
  * 
@@ -6,8 +11,19 @@
 
 public class Main {
 
-
     public static void main(String[] args) {
+        int numThreads = 12;
+        ScheduledThreadPoolExecutor threadPool
+                = new ScheduledThreadPoolExecutor(numThreads);
 
+        List<Runnable> tasks = new ArrayList<>();
+        for(int i = 0; i < numThreads; i++) {
+            tasks.add(new PrimeGenerator("task" + i, (int) (Math.random()*1000) + 2));
+        }
+
+        for(Runnable task: tasks) {
+            threadPool.schedule(task, (int) (Math.random()*20), TimeUnit.SECONDS);
+        }
+        threadPool.shutdown();
     }
 }
