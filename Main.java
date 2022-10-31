@@ -21,7 +21,7 @@ public class Main {
         List<Runnable> tasks = new ArrayList<>();
         
         for(int i = 0; i < numThreads; i++) {
-            tasks.add(new PrimeGenerator("PrimeNumberGenerator Thread#" + i, (int) (Math.random()*1000) + 2));
+            tasks.add(new PrimeGenerator("PrimeNumberGenerator Thread #" + (i+1)));
         }
 
         for(Runnable task: tasks) {
